@@ -23,12 +23,13 @@ def range_sum_BST(root, L, R):
 	def helper(root):
 		# set_trace()
 		if root:
+			# set_trace()
 			if root.val == L:
 				visited.append(root.val)
-				# return
+				# lower_bound = True
 			elif root.val == R:
 				visited.append(root.val)
-				# return
+				# upper_bound = True
 			elif root.val > L and root.val < R:
 				visited.append(root.val)
 				helper(root.left)
@@ -36,8 +37,16 @@ def range_sum_BST(root, L, R):
 			else:
 				helper(root.left)
 				helper(root.right)
+			if not (L in visited and R in visited):
+				if root.left:
+					# set_trace()
+					helper(root.left)
+				if root.right:
+					helper(root.right)
+
 
 	helper(root)
+	visited = list(set(visited))
 	# set_trace()
 	return sum(visited)
 
@@ -50,14 +59,14 @@ tree.right.right = TreeNode(18)
 
 
 tree_two = TreeNode(10)
-tree.left = TreeNode(5)
-tree.right = TreeNode(15)
-tree.left.left = TreeNode(3)
-tree.left.right = TreeNode(7)
-tree.right.left = TreeNode(13)
-tree.right.right = TreeNode(18)
-tree.left.left.left = TreeNode(1)
-tree.left.right.left = TreeNode(6)
+tree_two.left = TreeNode(5)
+tree_two.right = TreeNode(15)
+tree_two.left.left = TreeNode(3)
+tree_two.left.right = TreeNode(7)
+tree_two.right.left = TreeNode(13)
+tree_two.right.right = TreeNode(18)
+tree_two.left.left.left = TreeNode(1)
+tree_two.left.right.left = TreeNode(6)
 
 
 print(range_sum_BST(tree_two, 6, 10))
